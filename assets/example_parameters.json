@@ -1,0 +1,7 @@
+{
+    "seedfile": "s3://genomics-workflow-core/Results/Ninjamap/seedfiles/DS008.seedfile.csv",
+    "project": "DSQC_test",
+    "blast_perc_identity": 100,
+    "bam_perc_identity": 97,
+    "outdir": "3://genomics-workflow-core/Results/DSQC"
+}
