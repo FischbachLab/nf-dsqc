@@ -30,14 +30,14 @@ echo "${sample}"
 #repair.sh in=fastq_files/${sample}_${perc}.fastq.gz out=${sample}_R1.fastq out2=${sample}_R2.fastq outs=${sample}_singleton.fastq
 
 
-thres=2000 # 2MB
+thres=1000 # 2MB
 
 R1size=$(du -k "${sample}_R1.fastq.gz" | cut -f 1)
 echo "The Read 1 Size is $R1size kb"
 
 if [ "$R1size" -ge "$thres" ]; then
-    # randomly selet 1000 reads
-    reformat.sh samplereadstarget=1000 in=${sample}_R1.fastq.gz in2=${sample}_R2.fastq.gz out=${sample}_sampled_R1.fastq out2=${sample}_sampled_R2.fastq    
+    # randomly selet 10000 reads
+    reformat.sh samplereadstarget=10000 in=${sample}_R1.fastq.gz in2=${sample}_R2.fastq.gz out=${sample}_sampled_R1.fastq out2=${sample}_sampled_R2.fastq    
     # reformat to fasta 
     reformat.sh in=${sample}_sampled_R1.fastq in2=${sample}_sampled_R2.fastq out=${sample}_PE.fasta 
 else
