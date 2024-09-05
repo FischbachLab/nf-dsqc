@@ -27,6 +27,7 @@ process SamplePreprocess_unmapped {
   container params.docker_container
 
   publishDir "${params.outdir}/${params.project}/01_preprocess/unmapped/${sample}"
+  publishDir "${params.outdir}/${params.project}/01_preprocess/unmapped/stats", mode: 'copy', pattern: "*.tsv"
 
   input:
   tuple val(sample), val(path)
@@ -34,6 +35,7 @@ process SamplePreprocess_unmapped {
   output:
   tuple  val(sample), path("${sample}_PE.fasta"), emit: out_ch1
   tuple  val(sample), path("${sample}_sampled_R1.fastq"), path("${sample}_sampled_R2.fastq"), emit: out_ch2
+  path "${sample}_reads_stats.tsv", optional: true
 
   script:
   """
@@ -210,14 +212,12 @@ process Report_unmapped {
   container params.docker_container_report
 
   publishDir "${params.outdir}/${params.project}/04_report/unmapped/", mode: 'copy', pattern: "*.csv"
-  publishDir "${params.outdir}/${params.project}/04_report/unmapped/stats", mode: 'copy', pattern: "*.tsv"
 
   input:
     path "lca_dir/*"
   
   output:
     path "${params.project}_unmapped.csv"
-    path "${sample}_reads_stats.tsv", optional: true
 
   script:
   """
