@@ -37,7 +37,7 @@ process SamplePreprocess_unmapped {
 
   script:
   """
-  bash preprocess_unmapped.sh ${sample} ${path} 
+  bash preprocess_unmapped.sh ${sample} ${path} ${params.unmapped_read_thres}
   """
 }
 
@@ -209,13 +209,15 @@ process Report_unmapped {
 
   container params.docker_container_report
 
-  publishDir "${params.outdir}/${params.project}/04_report/unmapped/"
+  publishDir "${params.outdir}/${params.project}/04_report/unmapped/", mode: 'copy', pattern: "*.csv"
+  publishDir "${params.outdir}/${params.project}/04_report/unmapped/stats", mode: 'copy', pattern: "*.tsv"
 
   input:
     path "lca_dir/*"
   
   output:
     path "${params.project}_unmapped.csv"
+    path "${sample}_reads_stats.tsv", optional: true
 
   script:
   """

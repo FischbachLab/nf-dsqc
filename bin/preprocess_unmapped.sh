@@ -9,6 +9,7 @@ set -o pipefail
 
 sample=${1}
 S3INPUTPATH=${2}
+THRES=${3}
 
 
 aws s3 cp ${S3INPUTPATH}/${sample}/bowtie2/${sample}_unmapped_R1.fastq.gz  ${sample}_R1.fastq.gz 
@@ -30,13 +31,15 @@ echo "${sample}"
 #repair.sh in=fastq_files/${sample}_${perc}.fastq.gz out=${sample}_R1.fastq out2=${sample}_R2.fastq outs=${sample}_singleton.fastq
 
 
-thres=1000 # 2MB
+R1_reads=$(zcat "${sample}_R1.fastq.gz" | echo $((`wc -l`/4)))
 
-R1size=$(du -k "${sample}_R1.fastq.gz" | cut -f 1)
-echo "The Read 1 Size is $R1size kb"
+#R1size=$(du -k "${sample}_R1.fastq.gz" | cut -f 1)
+#echo "The Read 1 Size is $R1size kb"
 
-if [ "$R1size" -ge "$thres" ]; then
+if [ "${R1_reads}" -ge "$THRES" ]; then
     # randomly selet 10000 reads
+    touch ${sample}_stats.tsv 
+    echo "${R1_reads}" > ${sample}_reads_stats.tsv 
     reformat.sh samplereadstarget=10000 in=${sample}_R1.fastq.gz in2=${sample}_R2.fastq.gz out=${sample}_sampled_R1.fastq out2=${sample}_sampled_R2.fastq    
     # reformat to fasta 
     reformat.sh in=${sample}_sampled_R1.fastq in2=${sample}_sampled_R2.fastq out=${sample}_PE.fasta 
