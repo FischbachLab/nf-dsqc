@@ -11,8 +11,9 @@ tag=${3}
 
 Rscript merge_results.R ${input_dir} "${report}.csv"
 
-sed -i -e '/^[0-9]*/d' "${report}.csv"
 sed -i -e '/^,/d' "${report}.csv"
+sed -i -e '/^[0-9]+/d' "${report}.csv"
+
 #sed -i -e 's/;/,/' ${report}.csv
 
 #sed -i -e "s/root/no rank/" -e "s/^\b1\b/root/" -e "s/cellular organisms/no rank/" -e "s/^\b131567\b/cellular organisms/" -e "/^0/d" ${report}.csv 
