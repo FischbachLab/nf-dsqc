@@ -3,6 +3,10 @@ NF-DSQC
 
 This pipeline is based on the results of ninjaMap. It blasts both of the unampped and missed reads on a defined community and retruns the LCA counts.
 
+
+## A DSQC workflow is [here](workflow.md) 
+
+
 # MITI Drug Substance QC batch job
 ### Below is an example seedfile showing the sample name and s3 path in a csv file without headers. 
 
