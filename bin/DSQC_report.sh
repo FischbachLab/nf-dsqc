@@ -12,7 +12,7 @@ tag=${3}
 Rscript merge_results.R ${input_dir} "${report}.csv"
 
 sed -i -e '/^[0-9]+/d' "${report}.csv"
-sed -i -e '/^,/d' "${report}.csv"
+sed -i -e '/^,.*/d' "${report}.csv"
 
 #sed -i -e 's/;/,/' ${report}.csv
 
