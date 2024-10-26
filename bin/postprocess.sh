@@ -159,3 +159,4 @@ cat filtered_PE_lca/${sample}_PE_lca.tsv | cut -f2 | sort | uniq -c | sed $'s/^ 
 
 # remove the first numeric daata
 sed -i 's/^[0-9]*;//' ${sample}_reads_uniq.tsv
+sed -i '/^;/d' ${sample}_reads_uniq.tsv

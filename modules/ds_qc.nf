@@ -5,17 +5,19 @@ process SamplePreprocess_missed {
   container params.docker_container
 
   publishDir "${params.outdir}/${params.project}/01_preprocess/missed/${sample}"
-
+  publishDir "${params.outdir}/${params.project}/01_preprocess/missed/stats", mode: 'copy', pattern: "*.tsv"
+  
   input:
   tuple val(sample), val(path)
 
   output:
   tuple  val(sample), path("${sample}_PE.fasta"), emit: out_ch1
-  tuple  val(sample), path("${sample}_R1.fastq"), path("${sample}_R2.fastq"), emit: out_ch2
-
+  tuple  val(sample), path("${sample}_sampled_R1.fastq"), path("${sample}_sampled_R2.fastq"), emit: out_ch2
+  path "${sample}_reads_stats.tsv", optional: true
+  
   script:
   """
-  bash preprocess_missed.sh ${sample} ${path} ${params.bam_perc_identity}
+  bash preprocess_missed.sh ${sample} ${path} ${params.bam_perc_identity} ${params.read_num_thres}
   """
 }
 
@@ -39,7 +41,7 @@ process SamplePreprocess_unmapped {
 
   script:
   """
-  bash preprocess_unmapped.sh ${sample} ${path} ${params.unmapped_read_thres}
+  bash preprocess_unmapped.sh ${sample} ${path} ${params.read_num_thres}
   """
 }
 

@@ -11,6 +11,7 @@ mkdir -p votes
 sample=${1}
 S3INPUTPATH=${2}
 perc=${3}
+THRES=${4}
 
 # get bam file
 aws s3 cp ${S3INPUTPATH}/${sample}/bowtie2/${sample}.sortedByCoord.bam  bam_files/${sample}.bam 
@@ -38,7 +39,18 @@ samtools fastq -N -@16  bam_files/${sample}_${perc}.bam -0 /dev/null  | gzip > f
 repair.sh in=fastq_files/${sample}_${perc}.fastq.gz out=fastq_files/${sample}_missed_R1.fastq out2=fastq_files/${sample}_missed_R2.fastq outs=fastq_files/${sample}_missed_singleton.fastq
 
 # get all missed reads using the header file
-filterbyname.sh -Xmx14g in=fastq_files/${sample}_missed_R1.fastq in2=fastq_files/${sample}_missed_R2.fastq  out=${sample}_R1.fastq  out2=${sample}_R2.fastq  names=${sample}_headers.txt include=f ow=t
+filterbyname.sh -Xmx14g in=fastq_files/${sample}_missed_R1.fastq in2=fastq_files/${sample}_missed_R2.fastq out=${sample}_R1.fastq out2=${sample}_R2.fastq names=${sample}_headers.txt include=f ow=t
+
+R1_reads=$(cat "${sample}_R1.fastq" | echo $((`wc -l`/4)))
+
+if [ "${R1_reads}" -ge "$THRES" ]; then
+    # randomly selet 10000 reads
+    touch ${sample}_stats.tsv 
+    echo "${R1_reads}" > ${sample}_reads_stats.tsv 
+    reformat.sh samplereadstarget=10000 sampleseed=123 fixheaders=t in=${sample}_R1.fastq in2=${sample}_R2.fastq out=${sample}_sampled_R1.fastq out2=${sample}_sampled_R2.fastq
+else
+    reformat.sh fixheaders=t in=${sample}_R1.fastq in2=${sample}_R2.fastq out=${sample}_sampled_R1.fastq out2=${sample}_sampled_R2.fastq 
+fi
 
 # reformat to fasta
-reformat.sh in=${sample}_R1.fastq in2=${sample}_R2.fastq out=${sample}_PE.fasta
+reformat.sh fixheaders=t in=${sample}_sampled_R1.fastq in2=${sample}_sampled_R2.fastq out=${sample}_PE.fasta 
