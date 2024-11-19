@@ -40,7 +40,7 @@ if [ "${R1_reads}" -ge "$THRES" ]; then
     # randomly selet 10000 reads
     touch ${sample}_stats.tsv 
     echo "${R1_reads}" > ${sample}_reads_stats.tsv 
-    reformat.sh samplereadstarget=10000 sampleseed=123 fixheaders=t in=${sample}_R1.fastq.gz in2=${sample}_R2.fastq.gz out=${sample}_sampled_R1.fastq out2=${sample}_sampled_R2.fastq    
+    reformat.sh samplereadstarget=${THRES} sampleseed=123 fixheaders=t in=${sample}_R1.fastq.gz in2=${sample}_R2.fastq.gz out=${sample}_sampled_R1.fastq out2=${sample}_sampled_R2.fastq    
     # reformat to fasta 
     reformat.sh fixheaders=t in=${sample}_sampled_R1.fastq in2=${sample}_sampled_R2.fastq out=${sample}_PE.fasta 
 else

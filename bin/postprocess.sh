@@ -15,13 +15,14 @@ blast=${2}
 sample_R1=${3}
 sample_R2=${4}
 perc=${5}
+known_genomes=${6}
 
 export TAXONKIT_DB="/mnt/efs/databases/Blast/taxdump/"
 # file (params.taxonkit_db)
 
 # get the anticipated genome list
 #infile="246_Blast_preferred_no_duplicated_218.tsv"
-infile="/mnt/efs/databases/DSQC/246_Blast_no_duplicated_214_taxaid.tsv"
+infile=${known_genomes}
 
 # Declare an associative array (hash table)
 declare -A anticipated_hash

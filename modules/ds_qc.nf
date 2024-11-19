@@ -154,7 +154,7 @@ process SamplePostprocess_blast_ready {
 
   script:
   """
-  bash -x postprocess.sh ${sample} ${blast} ${R1} ${R2} ${params.blast_perc_identity}
+  bash -x postprocess.sh ${sample} ${blast} ${R1} ${R2} ${params.blast_perc_identity} ${params.anticipated_genomes}
   """
 }
 
@@ -177,7 +177,7 @@ process SamplePostprocess_unmapped {
 
   script:
   """
-  bash -x postprocess.sh ${sample} ${blast} ${R1} ${R2} ${params.blast_perc_identity}
+  bash -x postprocess.sh ${sample} ${blast} ${R1} ${R2} ${params.blast_perc_identity} ${params.anticipated_genomes}
   """
 }
 /* 
