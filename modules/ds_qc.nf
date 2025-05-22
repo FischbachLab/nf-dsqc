@@ -199,7 +199,7 @@ process SamplePostprocess_missed {
 
   script:
   """
-  bash postprocess.sh ${sample} ${blast} ${R1} ${R2} ${params.blast_perc_identity}
+  bash -x postprocess.sh ${sample} ${blast} ${R1} ${R2} ${params.blast_perc_identity} ${params.anticipated_genomes}
   """
 }
 /*
