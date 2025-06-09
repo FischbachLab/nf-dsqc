@@ -18,7 +18,7 @@ do
    echo ${Array[3]}
 
    ref2=$(echo "$ref" | sed 's/ /_/g')
-
+   ref2=$(echo "$ref2" | sed 's/\//_/g')
    echo ${ref2}
 
 # download 
