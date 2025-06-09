@@ -1,7 +1,10 @@
 {
     "seedfile": "s3://genomics-workflow-core/Results/Ninjamap/seedfiles/DS008.seedfile.csv",
+    "db":"MITI-001v3_20240604",
+    "db_prefix": "MITI-001",
+    "db_path": "s3://maf-versioned/ninjamap/Index",
     "project": "DSQC_test",
     "blast_perc_identity": 100,
-    "bam_perc_identity": 97,
-    "outdir": "3://genomics-workflow-core/Results/DSQC"
+    "bam_perc_identity": 98,
+    "outdir": "s3://genomics-workflow-core/Results/DSQC"
 }

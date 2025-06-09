@@ -23,6 +23,9 @@ aws batch submit-job \
     --job-queue priority-maf-pipelines \
     --job-definition nextflow-production \
     --container-overrides command="FischbachLab/nf-dsqc, \
+"--db","MITI-001v3_20240604", \
+"--db_prefix", "MITI-001", \
+"--db_path", "s3://maf-versioned/ninjamap/Index", \
 "--seedfile", "s3://nextflow-pipelines/nf-DSQC/test/test_seedfile.csv"
 "--project","20240223", \
 "--outdir","s3://genomics-workflow-core/Results/DSQC/" "

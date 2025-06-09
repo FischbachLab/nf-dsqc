@@ -17,7 +17,10 @@ process SamplePreprocess_missed {
   
   script:
   """
-  bash preprocess_missed.sh ${sample} ${path} ${params.bam_perc_identity} ${params.read_num_thres}
+  export REFDBNAME="${params.db_prefix}"
+  export S3DBPATH="${params.db_path}/${params.db}/db"
+
+  bash -x preprocess_missed.sh ${sample} ${path} ${params.bam_perc_identity} ${params.read_num_thres}
   """
 }
 
@@ -41,7 +44,10 @@ process SamplePreprocess_unmapped {
 
   script:
   """
-  bash preprocess_unmapped.sh ${sample} ${path} ${params.read_num_thres}
+  export REFDBNAME="${params.db_prefix}"
+  export S3DBPATH="${params.db_path}/${params.db}/db"
+
+  bash -x preprocess_unmapped.sh ${sample} ${path} ${params.read_num_thres}
   """
 }
 
