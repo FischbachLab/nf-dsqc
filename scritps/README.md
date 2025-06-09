@@ -1,7 +1,7 @@
 # How to extract the target reads based on DSQC-LCA-interrogation?
 
 ### &bull; The metadata format: a four-colum cvs file without headers
-`Sample_name,bin_name,species_name,3_path_to_SQC_results`
+`Sample_name,bin_name,species_name,s3_path_to_DSQC_results`
 
 ```{bash}
 20250325_DS078_A03_reseq,unmapped,Clostridium sp. M62/1,s3://genomics-workflow-core/Results/DSQC/20250418_MITI-001_DS-mNGS_HVFW7BGYW_Q30-L50_debug
@@ -12,7 +12,7 @@
 ### &bull; Make a seedfile based on a metadata file. An example is at `https://docs.google.com/spreadsheets/d/1YavFNFE3vFU511MFFVl3-mNRN84-nPJkL-sDdsP4fMs/edit?gid=0#gid=0`
 
 ```{bash}
-cat DSQC_reads_metadata.csv | xargs -I {} make_extract_dsqc_reads_seedfile.sh  {}  > DSQC_reads_seedfile.csv
+cat DSQC_reads_metadata.csv | xargs -I {} bash /path/to/make_extract_dsqc_reads_seedfile.sh  {}  > DSQC_reads_seedfile.csv
 ```
 
 ### &bull; Extract target reads
