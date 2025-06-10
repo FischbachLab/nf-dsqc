@@ -16,8 +16,11 @@ def helpMessage() {
     Reads post-processing pipeline for ninjaMap
 
     Required Arguments:
-      --project  value      Folder to place analysis outputs (default: )
-      --seedfile path       A csv file with headers in the format "Name,Bam",
+      --project  value    Folder to place analysis outputs (default: )
+      --seedfile path     A csv file with headers in the format "Name,Bam"
+      --db                db_name   NinjaMap database name
+      --db_prefix         db_prefix NinjaMap database prefix
+      --db_path           db_path   NinjaMap database path
 
     Options
       --blast_perc_identity  value   Minimum percent identity of matches to report in Blast (default:100)
