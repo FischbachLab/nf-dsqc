@@ -1,9 +1,9 @@
 # How to extract the target reads based on DSQC-LCA-interrogation?
 
-### &bull; The metadata format: a four-colum cvs file without headers
+### &bull; The metadata format: a four-column cvs file without headers
 `Sample_name,bin_name,species_name,s3_path_to_DSQC_results`
 
-[View file content](https://github.com/FischbachLab/nf-dsqc/blob/main/scripts/examples/DSQC_metadata.csv)
+[View example metadata file content](https://github.com/FischbachLab/nf-dsqc/blob/main/scripts/examples/DSQC_metadata.csv)
 
 <!--
 ```{bash}
@@ -17,7 +17,7 @@
 ```{bash}
 cat DSQC_reads_metadata.csv | xargs -I {} bash /path/to/make_extract_dsqc_reads_seedfile.sh  {}  > DSQC_reads_seedfile.csv
 ```
-[View file content](https://github.com/FischbachLab/nf-dsqc/blob/main/scripts/examples/DSQC_reads_seedfile.csv)
+[View example seedfile content](https://github.com/FischbachLab/nf-dsqc/blob/main/scripts/examples/DSQC_reads_seedfile.csv)
 
 ### &bull; Extract target reads
 
